@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FS_PROJECT_ASPNETCore_WebTutorQuizzer", "FS_PROJECT_ASPNETCore_WebTutorQuizzer\FS_PROJECT_ASPNETCore_WebTutorQuizzer.csproj", "{9A54EA88-A376-469E-BBEC-FB2C6E0295AE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9A54EA88-A376-469E-BBEC-FB2C6E0295AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A54EA88-A376-469E-BBEC-FB2C6E0295AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A54EA88-A376-469E-BBEC-FB2C6E0295AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A54EA88-A376-469E-BBEC-FB2C6E0295AE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6730FED4-6646-41AC-8387-9AB9FBF6D1F2}
+	EndGlobalSection
+EndGlobal
