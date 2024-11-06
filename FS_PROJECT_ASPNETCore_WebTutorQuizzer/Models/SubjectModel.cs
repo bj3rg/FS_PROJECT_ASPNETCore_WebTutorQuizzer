@@ -2,9 +2,13 @@
 {
     public class SubjectModel
     {
+        public SubjectModel()
+        {
+            Quizzes = new List<QuizModel>();
+        }
         public int Id { get; set; }
         public string Title { get; set; }
-        public List<QuizModel> Quizzes { get; set; }
+        public ICollection<QuizModel> Quizzes { get; set; }
 
 
     }

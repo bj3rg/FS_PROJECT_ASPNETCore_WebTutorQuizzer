@@ -13,7 +13,8 @@
         public int QuizId { get; set; }
 
         public QuizModel Quiz { get; set; }
-
+       
+        public byte ImageFile { get; set; }
 
     }
 }
