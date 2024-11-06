@@ -82,16 +82,20 @@ namespace FS_PROJECT_ASPNETCore_WebTutorQuizzer.Controllers
         // POST: SubjectController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<IActionResult> Edit(int id, [Bind("Id", "Title")] SubjectModel subject)
         {
-            try
+            if(id != subject.Id)
             {
-                return RedirectToAction(nameof(Index));
+                return NotFound();
             }
-            catch
+
+            if (ModelState.IsValid)
             {
-                return View();
+               dataContext.Update(subject);
+               await dataContext.SaveChangesAsync();
+               return RedirectToAction(nameof(Index));
             }
+            return View(subject);
         }
 
         // GET: SubjectController/Delete/5
