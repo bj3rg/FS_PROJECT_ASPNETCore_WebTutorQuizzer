@@ -1,0 +1,46 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Create Quiz"; 
+}
+@model FS_PROJECT_ASPNETCore_WebTutorQuizzer.Models.QuizModel
+
+<h1>
+    Create Quiz
+</h1>
+
+
+
+<form method="post" asp-controller="Quiz" asp-action="Create">
+    <div class="form-control">
+        <label for="subject">Select Subject</label>
+        <select id="subject" class="form-select" asp-for="SubjectId">
+            <option value=""> -- Select a Subject --</option>
+            @foreach(var subject in ViewBag.Subject)
+            {
+                <option value="@subject.Id">@subject.Title</option>
+            }
+        </select>
+    </div>
+    <div class="form-control">
+        <label class="form-label" asp-for="Name">Name</label>
+        <input class="form-control" type="text" asp-for="Name"/>
+        <span asp-validation-for="Name" class="text-danger"> </span>
+    </div>
+    <div class="form-control">
+        <label class="form-label" asp-for="IsDone">Name</label>
+        <select asp-for="IsDone" class="form-select">
+             <option value="True">True</option>
+            <option value="False">False</option>
+        </select>
+    </div>
+
+    <div class="form-control">
+        <label class="form-label" asp-for="DateTime">Date and Time</label>
+        <input class="form-control" type="datetime-local" asp-for="DateTime" />
+    </div>
+
+
+    <button type="submit">Save</button>
+</form>
