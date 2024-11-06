@@ -1,0 +1,20 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model FS_PROJECT_ASPNETCore_WebTutorQuizzer.Models.SubjectModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<form method="post" asp-controller="Subject" asp-action="Edit">
+    <div class="form-group">
+        <label asp-for="Title" class="control-label"></label>
+        <input asp-for="Title" class="form-control"/>
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Update</button>
+</form>
