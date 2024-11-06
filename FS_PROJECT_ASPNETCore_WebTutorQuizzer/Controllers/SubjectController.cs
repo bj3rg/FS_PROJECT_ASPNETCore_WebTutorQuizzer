@@ -1,41 +1,76 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using FS_PROJECT_ASPNETCore_WebTutorQuizzer.Data;
+using FS_PROJECT_ASPNETCore_WebTutorQuizzer.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using System.Text.Encodings.Web;
 
 namespace FS_PROJECT_ASPNETCore_WebTutorQuizzer.Controllers
 {
     public class SubjectController : Controller
     {
-        // GET: SubjectController
-        public ActionResult Index()
+        private readonly DataContext dataContext;
+
+        public SubjectController(DataContext dbContext)
         {
+            dataContext = dbContext;    
+        }
+
+        public IActionResult Welcome(string name, int numTimes = 2)
+        {
+            ViewData["Message"] = "Hello" + name;
+            ViewData["NumTimes"] = numTimes;
             return View();
+        }
+
+        // GET: SubjectController
+        public IActionResult Index()
+        {
+            var subjects = dataContext.Subject.ToList();
+            return View(subjects);
         }
 
         // GET: SubjectController/Details/5
-        public ActionResult Details(int id)
+        public async Task<IActionResult> Details(int? id)
         {
-            return View();
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var subject = await dataContext.Subject
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (subject == null)
+            {
+                return NotFound();
+            }
+            return View(subject);
         }
 
         // GET: SubjectController/Create
-        public ActionResult Create()
+        public IActionResult Create()
         {
             return View();
         }
 
         // POST: SubjectController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<IActionResult> Create([Bind("Title")] SubjectModel subject)
         {
-            try
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                dataContext.Subject.Add(subject);
+                await dataContext.SaveChangesAsync();
+                return RedirectToAction("Index");
             }
-            catch
+            if (!ModelState.IsValid)
             {
-                return View();
+                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    Console.WriteLine(error.ErrorMessage);
+                }
             }
+            return View(subject);
         }
 
         // GET: SubjectController/Edit/5
