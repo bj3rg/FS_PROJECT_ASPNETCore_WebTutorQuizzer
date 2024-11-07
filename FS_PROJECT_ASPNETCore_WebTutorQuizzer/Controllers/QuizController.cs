@@ -2,6 +2,8 @@
 using FS_PROJECT_ASPNETCore_WebTutorQuizzer.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace FS_PROJECT_ASPNETCore_WebTutorQuizzer.Controllers
 {
@@ -13,6 +15,44 @@ namespace FS_PROJECT_ASPNETCore_WebTutorQuizzer.Controllers
         {
             dbContext = _dbContext;
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Search(string searchString, string QuizSubject)
+        {
+            if (dbContext.Subject == null)
+            {
+                return Problem("Entity set 'dataContext.Quiz' is null ");
+            }
+
+            IQueryable<string> subjectQuery = from m in dbContext.Subject 
+                                              orderby m.Title 
+                                              select m.Title;
+
+
+            var quiz = from m in dbContext.Quiz
+                          select m;
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                quiz = quiz.Where(s => s.Name != null && s.Name.ToUpper().Contains(searchString));
+            }
+
+            if (!string.IsNullOrEmpty(QuizSubject))
+            {
+                quiz = quiz.Where(x => x.Subject != null && x.Subject.Title == QuizSubject);
+            }
+
+            var subjectQuizVM = new SubjectQuizViewModel
+            {
+                Subjects = new SelectList(await subjectQuery.Distinct().ToListAsync()),
+                Quizs = await quiz.ToListAsync() ,
+                SearchString = searchString,
+                QuizSubject = QuizSubject
+            };
+
+            return View(subjectQuizVM);
+        }
+
         [HttpGet]
         public IActionResult Index()
         {
