@@ -1,0 +1,49 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model FS_PROJECT_ASPNETCore_WebTutorQuizzer.Models.SubjectQuizViewModel
+
+@{
+    ViewData["Title"] = "Search";
+}
+
+<h1>Search Quiz</h1>
+
+<form method="get" asp-controller="Quiz" asp-action="Search">
+    
+    <div>
+        <label> Title: <input type="text" asp-for="SearchString"/> </label>
+        <label asp-for="QuizSubject">Subject:</label>
+        <select asp-for="QuizSubject" asp-items="Model.Subjects">
+            <option value="">All</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </div>
+
+   
+
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Quizs![0].Name)</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach( var item in Model.Quizs!)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    <a asp-controller="Quiz" asp-action="Edit" >Edit</a>
+                    <a asp-controller="Quiz" asp-action="Delete">Delete</a>
+                </td>
+                
+            </tr>
+        }
+    </tbody>
+</table>
